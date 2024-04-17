@@ -71,7 +71,7 @@ jobs:
         uses: 'google-github-actions/auth@v2'
         with:
           project_id: 'petclinic-420517'
-          workload_identity_provider: '${{ secrets.WIF_PROVIDER }}' # e.g. - projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider
+          workload_identity_provider: 'projects/871112303742/locations/global/workloadIdentityPools/github' # e.g. - projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider
 
       # NOTE: Alternative option - authentication via credentials json
       # - name: Google Auth

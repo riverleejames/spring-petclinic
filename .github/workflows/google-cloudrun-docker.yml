@@ -26,26 +26,29 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: Setup Java and Maven Caching
+      - name: Setup Java
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'adopt'
+
+      - name: Setup Maven and SonarCloud Caching
         run: |
-          echo "Caching Maven and SonarCloud packages"
+          echo "Setting up Maven and SonarCloud cache directories"
           mkdir -p ~/.m2 ~/.sonar/cache
-          echo "::set-output name=m2-dir::~/.m2"
-          echo "::set-output name=sonar-dir::~/.sonar/cache"
+          echo "m2-dir=~/.m2" >> $GITHUB_ENV
+          echo "sonar-dir=~/.sonar/cache" >> $GITHUB_ENV
 
       - name: Cache Maven and SonarCloud packages
         uses: actions/cache@v3
         with:
           path: |
-            ${{ steps.setup-java.outputs.m2-dir }}
-            ${{ steps.setup-java.outputs.sonar-dir }}
+            ${{ env.m2-dir }}
+            ${{ env.sonar-dir }}
           key: ${{ runner.os }}-m2-sonar-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-m2-sonar-
+
 
       - name: Build, Analyze and Test with Maven
         run: |

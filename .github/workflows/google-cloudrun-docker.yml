@@ -45,7 +45,7 @@ jobs:
           path: |
             ${{ env.m2-dir }}
             ${{ env.sonar-dir }}
-          key: ${{ runner.os }}-m2-sonar-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-m2-sonar-${{ hashFiles('**/pom.xml') }}-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-m2-sonar-
 
